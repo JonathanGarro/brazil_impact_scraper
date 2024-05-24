@@ -12,22 +12,21 @@ load_dotenv()
 
 def lambda_handler(event, context):
     """
-    AWS Lambda handler function to scrape data from a specified webpage, extract relevant information,
-    and append it to a CSV file stored in an S3 bucket.
+    AWS Lambda handler function to scrape data from the Brazilian government's "defesa civil", extract relevant information about the impact of the floods, and append it to a csv in an s3 bucket.
 
-    This function performs the following steps:
-    1. Sends a GET request to the specified webpage URL.
+    there are a number of steps that this function executes:
+    1. Sends a GET request to the specified webpage url.
     2. Parses the HTML content using BeautifulSoup.
     3. Extracts specific numeric data related to the current status of municipalities, shelters, displaced people, affected people, injuries, missing persons, confirmed deaths, and rescues.
     4. Appends the extracted data, along with the current datetime, to a CSV file stored in the /tmp directory.
     5. Uploads the updated CSV file to a specified S3 bucket.
 
-    Parameters:
-    event (dict): AWS Lambda event data (not used in this function).
-    context (object): AWS Lambda context object (not used in this function).
+    Parameters (note that these are boilerplate - part of the required syntax for AWS Lambda):
+    event (dict): AWS Lambda event data.
+    context (object): AWS Lambda context object.
 
     Returns:
-    dict: A dictionary containing the status code and a message indicating the result of the operation.
+    dict: A dictionary containing the status code and a message indicating the result of the operation. A 200 indicates that the script ran successfully. For more granular look at how this is performing, check the CloudWatch logs for the cron job that this is running off of.
 
     Raises:
     Exception: If the webpage cannot be retrieved, the function returns an error message with the status code.
